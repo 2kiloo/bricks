@@ -3,7 +3,7 @@ from pygame.locals import*
 
 pygame.init()   #initialize pygame
 fpsClock = pygame.time.Clock()
-
+brick = None
 mainSurface = pygame.display.set_mode((800, 600))
 pygame.display.set_caption('Bricks')
 black = pygame.Color(0, 0, 0)
@@ -33,20 +33,24 @@ ballRect.topleft = (bx, by)
 
 #brick init
 
-brick =pygame.image.load('brick.png')
-bricks = []
+def createBricks(pathToImg, rows, cols):
+    global brick
+    brick =pygame.image.load(pathToImg) 
+    bricks = []
+    for y in range(rows):
+        brickY = (y*16) +100
+        for x in range(cols):
+            brickX = (x*31) + 245
+            bricks.append(Rect(brickX,brickY,brick.get_width(),brick.get_height()))
+    return bricks
 
-for y in range(5):
-    brickY = (y*16) +100
-    for x in range(10):
-        brickX = (x*31) + 245
-        bricks.append(Rect(brickX,brickY,brick.get_width(),brick.get_height()))
 
-
+bricks = createBricks('brick.png',5,10)
 
 #main loop
 while True:
-
+    
+    
     mainSurface.fill(black)
    
 
